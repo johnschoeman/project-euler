@@ -1,21 +1,8 @@
 require 'byebug'
-num = 600851475143
 
 def prime_factors(input)
-  byebug
   num, factors = small_primes(input)
-
-  factor = prevprime(Math.sqrt(input).to_i)
-  loop do
-    if num % factor == 0
-      factors << factor
-      num /= factor
-    end
-    factor = prevprime(factor)
-    break if factor == 2
-    break if num < 2 || factor > num
-  end
-  factors
+  big_primes(input, num, factors).sort
 end
 
 def small_primes(num)
@@ -29,6 +16,20 @@ def small_primes(num)
     end
   end
   [num, factors]
+end
+
+def big_primes(input, num, factors)
+  factor = prevprime(Math.sqrt(input).to_i)
+  loop do
+    if num % factor == 0
+      factors << factor
+      num /= factor
+    end
+    factor = prevprime(factor)
+    break if factor <= 563
+    break if num < 2 || factor > num
+  end
+  factors
 end
 
 def isprime?(num)
@@ -59,5 +60,6 @@ def prevprime(num)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  naive_prime_factors(100)
+  num = 600851475143
+  naive_prime_factors(num)
 end
