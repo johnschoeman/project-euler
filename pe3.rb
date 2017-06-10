@@ -61,5 +61,5 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   num = 600851475143
-  naive_prime_factors(num)
+  print prime_factors(num)
 end
